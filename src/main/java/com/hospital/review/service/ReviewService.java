@@ -4,11 +4,14 @@ import com.hospital.review.domain.Hospital;
 import com.hospital.review.domain.Review;
 import com.hospital.review.domain.dto.ReviewCreateRequest;
 import com.hospital.review.domain.dto.ReviewCreateResponse;
+import com.hospital.review.domain.dto.ReviewReadResponse;
 import com.hospital.review.repository.HospitalRepository;
 import com.hospital.review.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -49,6 +52,20 @@ public class ReviewService {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 id가 없습니다"));
         return review;
+    }
+
+    public List<ReviewReadResponse> findAllByHospitalId(Long hospitalId) {
+        Hospital hospital = hospitalRepository.findById(hospitalId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 id가 없습니다."));
+        List<ReviewReadResponse> reviews = reviewRepository.findByHospital(hospital)
+                .stream().map(review -> ReviewReadResponse.builder()
+                        .title(review.getTitle())
+                        .content(review.getContent())
+                        .patientName(review.getPatientName())
+                        .hospitalName(review.getHospital().getHospitalName())
+                        .build())
+                .collect(Collectors.toList());
+        return reviews;
     }
 
 }

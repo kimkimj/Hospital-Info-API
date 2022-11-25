@@ -5,11 +5,14 @@ import com.hospital.review.domain.dto.ReviewReadResponse;
 import com.hospital.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/reviews")
@@ -18,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReviewController {
     private final ReviewService reviewService;
 
-    // 한개의 병원 리뷰 조회 기능
+    // 리뷰 ID로 리뷰 1개 조회
     // GET /api/v1/reviews/{id}
     @GetMapping("/{id}")
     public ResponseEntity<ReviewReadResponse> get(@PathVariable Long id) {
@@ -31,5 +34,12 @@ public class ReviewController {
                 .hospitalName(review.getHospital().getHospitalName())
                 .build();
         return ResponseEntity.ok().body(response);
+    }
+
+    //병원 ID로 해당 병원의 모든 리뷰 죄회하는 기능
+    // GET /api/v1/reviews/{hospitalId}/reviews
+    @GetMapping("/{hospitalId}/reviews")
+    public ResponseEntity<List<ReviewReadResponse>> reviews(@PathVariable Long hospitalId){
+        return ResponseEntity.ok().body(reviewService.findAllByHospitalId(hospitalId));
     }
 }
