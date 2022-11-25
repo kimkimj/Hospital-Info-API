@@ -44,4 +44,11 @@ public class ReviewService {
                 .message("리뷰 등록이 성공했습니다.")
                 .build();
     }
+
+    public Review getReview(Long id) {
+        Review review = reviewRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("해당 id가 없습니다"));
+        return review;
+    }
+
 }
