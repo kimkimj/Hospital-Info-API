@@ -23,6 +23,7 @@ public class ReviewController {
 
     // 리뷰 ID로 리뷰 1개 조회
     // GET /api/v1/reviews/{id}
+    /*
     @GetMapping("/{id}")
     public ResponseEntity<ReviewReadResponse> get(@PathVariable Long id) {
         Review review = reviewService.getReview(id);
@@ -33,6 +34,12 @@ public class ReviewController {
                 .patientName(review.getPatientName())
                 .hospitalName(review.getHospital().getHospitalName())
                 .build();
+        return ResponseEntity.ok().body(response);
+    }*/
+    @GetMapping("/{id}")
+    public ResponseEntity<ReviewReadResponse> get(@PathVariable Long id) {
+        Review review = reviewService.getReview(id);
+        ReviewReadResponse response = ReviewReadResponse.fromEntity(review);
         return ResponseEntity.ok().body(response);
     }
 
