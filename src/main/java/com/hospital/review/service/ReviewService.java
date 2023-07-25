@@ -25,6 +25,7 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
+    // 리뷰 등록
     public ReviewCreateResponse createReview(ReviewCreateRequest dto) {
 
         // Hospital 불러오기
@@ -48,12 +49,14 @@ public class ReviewService {
                 .build();
     }
 
+    // 단건 조회
     public Review getReview(Long id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 id가 없습니다"));
         return review;
     }
 
+    // 특정 병원의 리뷰 전체 조회
     public List<ReviewReadResponse> findAllByHospitalId(Long hospitalId) {
         Hospital hospital = hospitalRepository.findById(hospitalId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 id가 없습니다."));
