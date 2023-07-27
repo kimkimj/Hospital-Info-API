@@ -9,10 +9,10 @@ https://www.localdata.go.kr/devcenter/dataDown.do?menuNo=20001
 
 ## Endpoints
 병원 전체 목록 조회  
-GET /list
+GET api/v1/hospitals/list
 
 병원 단건 조회
-GET /{hospitalId}
+GET api/v1/hospitals/{hospitalId}
 
 주소로 병원 검색
-GET /search 
+GET api/v1/hospitals/search 
