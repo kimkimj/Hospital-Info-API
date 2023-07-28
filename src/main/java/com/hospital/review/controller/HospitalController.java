@@ -1,40 +1,57 @@
 package com.hospital.review.controller;
 
-import com.hospital.review.domain.Hospital;
-import com.hospital.review.domain.dto.HospitalReadResponse;
-import com.hospital.review.domain.dto.ReviewCreateRequest;
-import com.hospital.review.domain.dto.ReviewCreateResponse;
-import com.hospital.review.domain.dto.ReviewReadResponse;
-import com.hospital.review.service.HospitalService;
-import com.hospital.review.service.ReviewService;
-
-import lombok.NoArgsConstructor;
+import com.hospital.review.domain.entity.Hospital;
+import com.hospital.review.repository.HospitalRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import java.util.Optional;
 
-@RestController
-@RequestMapping("/api/v1/hospitals")
+@Controller
 @RequiredArgsConstructor
+@RequestMapping("/hospitals")
 public class HospitalController {
+    private final HospitalRepository hospitalRepository;
 
-    private final ReviewService reviewService;
-    private final HospitalService hospitalService;
+    // 전체 조회, 도로명 키워드 검색 가능
+    @GetMapping("")
+    public String list(@RequestParam(required = false) String keyword,
+                       Model model,
+                       @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
-    // 병원 id를 조회하면 병원 정보와 리뷰 조회
-    @GetMapping("/{id}")
-    public ResponseEntity<HospitalReadResponse> getHospital(@PathVariable Long id) {
-        Hospital hospitalResponse = hospitalService.findById(id);
-        HospitalReadResponse hospitalReadResponse = HospitalReadResponse.fromEntity(hospitalResponse);
-        return ResponseEntity.ok().body(hospitalReadResponse);
+        Page<Hospital> hospitals;
+        if (keyword == null) {
+            hospitals = hospitalRepository.findAll(pageable);
+        } else {
+            hospitals = hospitalRepository.findByRoadNameAddressContaining(keyword, pageable);
+        }
+
+        model.addAttribute("hospitals", hospitals);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+
+        return "hospitals/list";
     }
 
-    //병원 ID로 해당 병원의 모든 리뷰 조회
-    @GetMapping("/{hospitalId}/reviews")
-    public ResponseEntity<List<ReviewReadResponse>> reviews(@PathVariable Long hospitalId){
-        return ResponseEntity.ok().body(reviewService.findAllByHospitalId(hospitalId));
+    // 단건 조회
+    @GetMapping("/{id}")
+    public String getHospital(@PathVariable Integer id, Model model) {
+        Optional<Hospital> optionalHospital = hospitalRepository.findById(id);
+        if (optionalHospital.isEmpty()) {
+            return "hospitals/error";
+        } else {
+            model.addAttribute("hospital", optionalHospital.get());
+            return "hospitals/detail";
+        }
     }
 }
