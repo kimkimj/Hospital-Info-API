@@ -11,21 +11,24 @@ public class HospitalResponse {
     private Integer id;
     private String roadNameAddress;
     private String hospitalName;
+    private String phoneNumber;
     private Integer patientRoomCount;
     private Integer totalNumberOfBeds;
     private String businessTypeName;
-    private Float totalAreaSize;
     private String businessStatusName;
+    private String medicalDepartment;
 
-    public HospitalResponse(Integer id, String roadNameAddress, String hospitalName, Integer patientRoomCount,
-                            Integer totalNumberOfBeds, String businessTypeName, Float totalAreaSize) {
+    public HospitalResponse(Integer id, String roadNameAddress, String hospitalName,
+                            String phoneNumber, Integer patientRoomCount, Integer totalNumberOfBeds,
+                            String businessTypeName, String medicalDepartment) {
         this.id = id;
         this.roadNameAddress = roadNameAddress;
         this.hospitalName = hospitalName;
         this.patientRoomCount = patientRoomCount;
         this.totalNumberOfBeds = totalNumberOfBeds;
         this.businessTypeName = businessTypeName;
-        this.totalAreaSize = totalAreaSize;
+        this.phoneNumber = phoneNumber;
+        this.medicalDepartment = medicalDepartment;
     }
 
     public void setBusinessStatusName(String businessStatusName) {
