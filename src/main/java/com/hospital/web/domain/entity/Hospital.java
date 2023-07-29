@@ -1,12 +1,10 @@
-package com.hospital.review.domain.entity;
+package com.hospital.web.domain.entity;
 
-import com.hospital.review.domain.dto.HospitalResponse;
-import lombok.AllArgsConstructor;
+import com.hospital.web.domain.dto.HospitalResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor

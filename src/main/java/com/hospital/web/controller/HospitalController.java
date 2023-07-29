@@ -1,7 +1,7 @@
-package com.hospital.review.controller;
+package com.hospital.web.controller;
 
-import com.hospital.review.domain.entity.Hospital;
-import com.hospital.review.repository.HospitalRepository;
+import com.hospital.web.domain.entity.Hospital;
+import com.hospital.web.repository.HospitalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

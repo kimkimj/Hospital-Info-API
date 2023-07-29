@@ -1,10 +1,9 @@
-package com.hospital.review.controller;
+package com.hospital.web.controller;
 
-import com.hospital.review.domain.dto.HospitalResponse;
-import com.hospital.review.service.HospitalService;
+import com.hospital.web.domain.dto.HospitalResponse;
+import com.hospital.web.service.HospitalService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

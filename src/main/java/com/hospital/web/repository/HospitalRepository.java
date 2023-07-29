@@ -1,6 +1,6 @@
-package com.hospital.review.repository;
+package com.hospital.web.repository;
 
-import com.hospital.review.domain.entity.Hospital;
+import com.hospital.web.domain.entity.Hospital;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

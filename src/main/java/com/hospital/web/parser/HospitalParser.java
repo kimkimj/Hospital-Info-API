@@ -1,6 +1,6 @@
-package com.hospital;
+package com.hospital.web.parser;
 
-import com.hospital.review.domain.entity.Hospital;
+import com.hospital.web.domain.entity.Hospital;
 
 public class HospitalParser {
     public Hospital parse(String str) {

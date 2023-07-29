@@ -1,8 +1,6 @@
-package com.hospital.review.domain.dto;
+package com.hospital.web.domain.dto;
 
 import lombok.*;
-
-import java.time.LocalDate;
 
 @Builder
 @AllArgsConstructor

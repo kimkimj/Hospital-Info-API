@@ -1,8 +1,8 @@
-package com.hospital.review.service;
+package com.hospital.web.service;
 
-import com.hospital.review.domain.dto.HospitalResponse;
-import com.hospital.review.domain.entity.Hospital;
-import com.hospital.review.repository.HospitalRepository;
+import com.hospital.web.domain.dto.HospitalResponse;
+import com.hospital.web.domain.entity.Hospital;
+import com.hospital.web.repository.HospitalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
