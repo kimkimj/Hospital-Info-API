@@ -4,7 +4,7 @@ import com.hospital.web.domain.entity.Hospital;
 
 public class HospitalParser {
     public Hospital parse(String str) {
-        //탭으로 구분된 txt파일을 split 한다.
+        // 한줄씩 tab으로 구분해 나눈다
         String[] row = str.split("\t");
 
         //개방 서비스명 (의원 혹은 병원)
@@ -18,9 +18,10 @@ public class HospitalParser {
 
         //도로명 주소
         String roadNameAddress = row[19].replaceAll("\"", "");
+
         //사업장명
         String hospitalName = row[21];
-        //업태구분명
+
         String businessTypeName = row[25];
 
         //병상 수
