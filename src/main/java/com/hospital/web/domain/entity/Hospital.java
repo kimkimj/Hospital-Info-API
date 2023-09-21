@@ -17,11 +17,22 @@ public class Hospital {
     private String roadNameAddress;
     @Column(name = "hospital_name")
     private String hospitalName;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "patient_room_count")
     private Integer patientRoomCount;
+
+    @Column(name = "total_number_of_beds")
     private Integer totalNumberOfBeds;
+
+    @Column(name = "business_type_name")
     private String businessTypeName;
+
+    @Column(name = "business_status_code")
     private Integer businessStatusCode;
+
     @Column(name = "medical_department")
     private String medicalDepartment;
 
